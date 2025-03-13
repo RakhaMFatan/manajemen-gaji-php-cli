@@ -1,7 +1,5 @@
 <?php
 
-// === BAGIAN FUNGSI (JANGAN DIHAPUS) ===
-
 if (!function_exists('getData')) {
     function getData() {
         $data = @include __FILE__;
@@ -13,17 +11,16 @@ if (!function_exists('saveData')) {
     function saveData($data) {
         $file = __FILE__;
 
-        // Ambil isi file
+        // mengambil isi file
         $fileContent = file_get_contents($file);
 
-        // Hapus semua blok "return array(...);" sebelumnya (termasuk komentar)
+        // Hapus semua blok
         $fileContent = preg_replace('/\/\/ === DATA KARYAWAN ===\s*return\s+array\s*\(.*?\);\s*/s', '', $fileContent);
 
         // Tambahkan kembali tanda komentar dan simpan data baru
         $fileContent = rtrim($fileContent) . "\n\n// === DATA KARYAWAN ===\n";
         $fileContent .= "return " . var_export($data, true) . ";\n";
 
-        // Tulis ulang file dengan data terbaru
         
     }
 }
@@ -66,7 +63,7 @@ if (!function_exists('tambahKaryawan')) {
         $data[] = ['nama' => $nama, 'jabatan' => $jabatan];
 
         saveData($data);
-        echo "✅ Karyawan berhasil ditambahkan!\n";
+        echo "Karyawan berhasil ditambahkan!\n";
     }
 }
 
@@ -79,7 +76,7 @@ if (!function_exists('updateKaryawan')) {
         $index = (int)trim(fgets(STDIN)) - 1;
 
         if (!isset($data[$index])) {
-            echo "⚠️ Nomor karyawan tidak ditemukan!\n";
+            echo "Nomor karyawan tidak ditemukan!\n";
             return;
         }
 
@@ -90,13 +87,13 @@ if (!function_exists('updateKaryawan')) {
         $jabatan = trim(fgets(STDIN));
 
         if (!in_array($jabatan, ['Manajer', 'Supervisor', 'Staf'])) {
-            echo "⚠️ Jabatan tidak valid!\n";
+            echo "Jabatan tidak valid!\n";
             return;
         }
 
         $data[$index]['jabatan'] = $jabatan;
         saveData($data);
-        echo "✅ Data karyawan berhasil diperbarui!\n";
+        echo "Data karyawan berhasil diperbarui!\n";
     }
 }
 
@@ -109,7 +106,7 @@ if (!function_exists('hapusKaryawan')) {
         $index = (int)trim(fgets(STDIN)) - 1;
 
         if (!isset($data[$index])) {
-            echo "⚠️ Nomor karyawan tidak ditemukan!\n";
+            echo "Nomor karyawan tidak ditemukan!\n";
             return;
         }
 
@@ -122,7 +119,7 @@ if (!function_exists('hapusKaryawan')) {
 
         unset($data[$index]);
         saveData(array_values($data));
-        echo "✅ Karyawan berhasil dihapus!\n";
+        echo "Karyawan berhasil dihapus!\n";
     }
 }
 
@@ -135,7 +132,7 @@ if (!function_exists('hitungGaji')) {
         $index = (int)trim(fgets(STDIN)) - 1;
 
         if (!isset($data[$index])) {
-            echo "⚠️ Nomor karyawan tidak ditemukan!\n";
+            echo "Nomor karyawan tidak ditemukan!\n";
             return;
         }
 
@@ -146,7 +143,7 @@ if (!function_exists('hitungGaji')) {
         $rating = (int)trim(fgets(STDIN));
 
         if ($rating < 1 || $rating > 5) {
-            echo "⚠️ Rating tidak valid!\n";
+            echo "Rating tidak valid!\n";
             return;
         }
 
@@ -159,7 +156,7 @@ if (!function_exists('hitungGaji')) {
         $total_gaji = $gaji_pokok[$jabatan] + $tunjangan_jabatan[$jabatan] + ($lembur * 25000) + $bonus_kinerja[$rating];
 
         echo "\n==============================\n";
-        echo "       💰 Gaji Karyawan 💰       \n";
+        echo "         Gaji Karyawan        \n";
         echo "==============================\n";
         echo "Nama          : {$data[$index]['nama']}\n";
         echo "Jabatan       : {$jabatan}\n";

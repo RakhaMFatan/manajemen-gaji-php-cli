@@ -5,7 +5,7 @@ require_once 'gaji.php';
 
 function menu() {
     echo "\n=============================\n";
-    echo "  SISTEM MANAJEMEN GAJI\n";
+    echo "    SISTEM MANAJEMEN GAJI\n";
     echo "=============================\n";
     echo "1. Lihat Karyawan\n";
     echo "2. Tambah Karyawan\n";
@@ -22,7 +22,7 @@ while (true) {
     $pilihan = trim(fgets(STDIN));
 
     if (!in_array($pilihan, ['1', '2', '3', '4', '5', '6'])) {
-        echo "⚠️ Input tidak valid, silakan pilih angka 1-6!\n";
+        echo "Input tidak valid, silakan pilih angka 1-6!\n";
         continue;
     }
 
